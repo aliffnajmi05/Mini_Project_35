@@ -19,6 +19,8 @@
 #include "main_menu.hpp"
 #include "welcome.hpp"
 #include "destination.hpp"
+#include "maxseats.hpp"
+#include "checkmax.hpp"
 #include <iostream>
 
 using namespace std;
@@ -29,6 +31,43 @@ int main()
     welcomePage();
     LoginRegisterForgot loginregisterforgot;
     mainMenu(loginregisterforgot);
+
+    bool economySeats[ECONOMY_SEATS] = {false}; 
+    bool firstClassSeats[FIRST_CLASS_SEATS] = {false};
+
+    int choice;
+
+    do {
+        cin >> choice;
+
+        switch (choice) {
+            case 1: 
+                if (isClassFullyBooked(economySeats, ECONOMY_SEATS)) {
+                    cout << "\nAll economy class seats are fully booked. Returning to the main menu.\n";
+                } else {
+                    cout << "\nEconomy class seats are available. Proceeding with booking...\n";
+                    
+                }
+                break;
+
+            case 2: 
+                if (isClassFullyBooked(firstClassSeats, FIRST_CLASS_SEATS)) {
+                    cout << "\nAll first-class seats are fully booked. Returning to the main menu.\n";
+                } else {
+                    cout << "\nFirst-class seats are available. Proceeding with booking...\n";
+                    
+                }
+                break;
+
+            case 3: 
+                cout << "Exiting the system. Thank you!\n";
+                break;
+
+            default:
+                cout << "Invalid choice. Please try again.\n";
+        }
+    } while (choice != 3);
+
 
     string destinations[TOTAL_DESTINATION] = {
         "India", "China", "Indonesia", "Pakistan", "Bangladesh", "Japan", "Philippines", "Vietnam", "Iran",
